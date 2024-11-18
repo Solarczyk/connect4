@@ -76,7 +76,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const board = document.querySelector(".board");
   createBoard(board);
   // Open the WebSocket connection and register event handlers.
-  const websocket = new WebSocket("wss://connect4-web.onrender.com");
+  const websocket = new WebSocket("wss://connect4-web.onrender.com:8001");
   initGame(websocket);
   receiveMoves(board, websocket);
   sendMoves(board, websocket);
