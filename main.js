@@ -1,4 +1,14 @@
-import { createBoard, playMove } from "connect4.js";
+import { createBoard, playMove } from "./connect4.js";
+
+function getWebSocketServer() {
+  if (window.location.host === "solarczyk.github.io/connect4/") {
+    return "wss://websockets-tutorial.herokuapp.com/";
+  } else if (window.location.host === "localhost:8000") {
+    return "wss://connect4-web.onrender.com";
+  } else {
+    throw new Error(`Unsupported host: ${window.location.host}`);
+  }
+}
 
 function initGame(websocket) {
   websocket.addEventListener("open", () => {
@@ -76,7 +86,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const board = document.querySelector(".board");
   createBoard(board);
   // Open the WebSocket connection and register event handlers.
-  const websocket = new WebSocket("wss://connect4-web.onrender.com:8001");
+  const websocket = new WebSocket(getWebSocketServer());
   initGame(websocket);
   receiveMoves(board, websocket);
   sendMoves(board, websocket);
